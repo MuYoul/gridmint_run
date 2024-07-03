@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  gridmint_collector:
+    image: lemy0715/gridmint_collector:latest
+    container_name: gridmint_collector
+    env_file:
+      - ./gridmint_collector/.env
+    volumes:
+      - ./datafiles:/app/datafiles
+      - ./configs:/app/configs
+      - ./logs:/app/logs
+      - ./gridmint_collector/.env:/app/.env
+    networks:
+      - gridmint_network
+
+  gridmint_singleapp:
+    image: lemy0715/gridmint_singleapp:latest
+    container_name: gridmint_singleapp
+    env_file:
+      - ./single_app/.env
+    volumes:
+      - ./datafiles:/app/datafiles
+      - ./configs:/app/configs
+      - ./logs:/app/logs
+    networks:
+      - gridmint_network
+
+networks:
+  gridmint_network:
+    driver: bridge
